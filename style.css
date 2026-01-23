@@ -1,0 +1,171 @@
+/* CSS ADICIONAL PARA O VISUAL AGRESSIVO DA VSL */
+
+.aggressive-header {
+    background: #ff003c;
+    color: white;
+    padding: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% {
+        background: #ff003c;
+    }
+
+    50% {
+        background: #b91c1c;
+    }
+
+    100% {
+        background: #ff003c;
+    }
+}
+
+.headline-box h1 {
+    font-size: 1.8rem;
+    /* Mobile first */
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.video-wrapper {
+    border: 4px dashed #ff003c;
+    /* Borda de "Conteúdo Vazado" */
+    background: #000;
+    margin-top: 20px;
+    box-shadow: 0 0 30px rgba(255, 0, 60, 0.3);
+    position: relative;
+}
+
+.video-wrapper::before {
+    content: 'CONTEÚDO SENSÍVEL: PODE SER REMOVIDO';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #ff003c;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* GALERIA ANTES E DEPOIS - Estilo Facebook/Instagram */
+.transformation-gallery {
+    background: #18191a;
+    padding: 40px 20px;
+    margin-top: 40px;
+    border-top: 1px solid #333;
+}
+
+.gallery-title {
+    text-align: center;
+    color: #e4e6eb;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.gallery-card {
+    background: #242526;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #3e4042;
+}
+
+.card-header {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #aaa;
+    object-fit: cover;
+}
+
+.user-info strong {
+    display: block;
+    color: #e4e6eb;
+    font-size: 0.95rem;
+}
+
+.user-info span {
+    color: #b0b3b8;
+    font-size: 0.8rem;
+}
+
+.verified-badge {
+    color: #2d88ff;
+    /* Azul de verificado */
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+.transformation-image {
+    width: 100%;
+    height: 300px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    position: relative;
+}
+
+/* Simulação do "Antes e Depois" com texto */
+.transformation-image::after {
+    content: 'ANTES | DEPOIS';
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    bottom: 10px;
+}
+
+.card-footer {
+    padding: 10px;
+    color: #e4e6eb;
+    font-size: 0.9rem;
+    border-top: 1px solid #3e4042;
+}
+
+.likes {
+    color: #b0b3b8;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.like-icon {
+    background: #2d88ff;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+}

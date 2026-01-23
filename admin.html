@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Mounjatina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f3f4f6;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #111;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #444;
+            margin-top: 30px;
+            font-size: 1.2rem;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        button {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 30px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #15803d;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 5px;
+            display: none;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .section-box {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>⚙️ Configuração do Funil</h1>
+        <p>Use este painel para atualizar os links e comportamentos do seu funil sem tocar no código.</p>
+
+        <form id="configForm">
+
+            <!-- SEÇÃO VSL -->
+            <div class="section-box">
+                <h2>📹 Configuração da VSL (Vídeo de Vendas)</h2>
+
+                <label>Código Embed do Vídeo (HTML)</label>
+                <textarea id="vslEmbed" rows="4"
+                    placeholder='Cole o código iframe aqui ex: <iframe src="..."></iframe>'></textarea>
+                <p class="help-text">Pegue o "Embed Code" no Youtube/Vimeo/Panda Video e cole aqui. Se deixar vazio,
+                    mostrará o placeholder.</p>
+
+                <label>Headline (Título Principal)</label>
+                <input type="text" id="vslHeadline" placeholder="Ex: VAZOU: A Receita Secreta...">
+
+                <label>Delay do Botão CTA (Minutos : Segundos)</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="ctaMin" placeholder="Min" style="width: 80px;" value="0">
+                    <input type="number" id="ctaSec" placeholder="Seg" style="width: 80px;" value="0">
+                </div>
+                <p class="help-text">Tempo exato para o botão de compra aparecer (pitch de vendas).</p>
+            </div>
+
+            <!-- SEÇÃO LINKS -->
+            <div class="section-box">
+                <h2>🔗 Links de Checkout (Pagamento)</h2>
+
+                <label>Link Checkout Oferta Principal (Mounjatina)</label>
+                <input type="url" id="linkMain" placeholder="https://pay.kiwify.com.br/...">
+
+                <label>Link Checkout Upsell (Chá Detox)</label>
+                <input type="url" id="linkUpsell" placeholder="https://pay.kiwify.com.br/...">
+
+                <label>Link Checkout Downsell (1 Pote Extra)</label>
+                <input type="url" id="linkDownsell" placeholder="https://pay.kiwify.com.br/...">
+
+                <label>Link Grupo VIP (WhatsApp)</label>
+                <input type="url" id="linkWhatsapp" placeholder="https://chat.whatsapp.com/...">
+            </div>
+
+            <button type="submit"><i class="fas fa-save"></i> SALVAR CONFIGURAÇÕES</button>
+        </form>
+
+        <div id="statusMsg" class="status">✅ Configurações salvas com sucesso!</div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="quiz_vsl.html" target="_blank"
+                style="color: #2563eb; text-decoration: none; font-weight: bold;">Ver Página Principal ➜</a>
+        </div>
+    </div>
+
+    <script>
+        // Carregar dados salvos ao abrir
+        document.addEventListener('DOMContentLoaded', () => {
+            const config = JSON.parse(localStorage.getItem('funnelConfig')) || {};
+
+            if (config.vslEmbed) document.getElementById('vslEmbed').value = config.vslEmbed;
+            if (config.vslHeadline) document.getElementById('vslHeadline').value = config.vslHeadline;
+            if (config.ctaMin) document.getElementById('ctaMin').value = config.ctaMin;
+            if (config.ctaSec) document.getElementById('ctaSec').value = config.ctaSec;
+
+            if (config.linkMain) document.getElementById('linkMain').value = config.linkMain;
+            if (config.linkUpsell) document.getElementById('linkUpsell').value = config.linkUpsell;
+            if (config.linkDownsell) document.getElementById('linkDownsell').value = config.linkDownsell;
+            if (config.linkWhatsapp) document.getElementById('linkWhatsapp').value = config.linkWhatsapp;
+        });
+
+        // Salvar dados
+        document.getElementById('configForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const config = {
+                vslEmbed: document.getElementById('vslEmbed').value,
+                vslHeadline: document.getElementById('vslHeadline').value,
+                ctaMin: document.getElementById('ctaMin').value || 0,
+                ctaSec: document.getElementById('ctaSec').value || 0,
+                linkMain: document.getElementById('linkMain').value,
+                linkUpsell: document.getElementById('linkUpsell').value,
+                linkDownsell: document.getElementById('linkDownsell').value,
+                linkWhatsapp: document.getElementById('linkWhatsapp').value
+            };
+
+            localStorage.setItem('funnelConfig', JSON.stringify(config));
+
+            const status = document.getElementById('statusMsg');
+            status.style.display = 'block';
+            setTimeout(() => { status.style.display = 'none'; }, 3000);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Metabólica Confidencial</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #050505;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .quiz-header h1 {
+            color: #ff003c;
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+        }
+
+        .quiz-header p {
+            color: #a3a3a3;
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: #111;
+            border: 1px solid #333;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: #1f1f1f;
+            border: 1px solid #333;
+            color: white;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: left;
+            position: relative;
+        }
+
+        .option-btn:hover {
+            background: #2a2a2a;
+            border-color: #8b5cf6;
+            transform: scale(1.02);
+        }
+
+        .option-btn:after {
+            content: '➜';
+            position: absolute;
+            right: 20px;
+            opacity: 0.5;
+        }
+
+        .loading-screen {
+            display: none;
+            margin-top: 50px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: #8b5cf6;
+            font-weight: bold;
+            animation: pulse 1s infinite;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #333;
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff003c, #8b5cf6);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        #vsl-section {
+            display: none;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- QUIZ SECTION -->
+    <div id="quiz-wrapper" class="quiz-container">
+
+        <div class="quiz-header">
+            <h1>⚠️ Análise de Metabolismo</h1>
+            <p>Responda com honestidade. Seus dados são confidenciais.</p>
+            <div class="progress-container">
+                <div id="progress" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <!-- PERGUNTAS -->
+        <div id="q1" class="question-card">
+            <p class="question-text">1. Quantos quilos você precisa eliminar urgente?</p>
+            <div class="options">
+                <button class="option-btn" onclick="nextQuestion(1)">5kg a 10kg (Gordura Localizada)</button>
+                <button class="option-btn" onclick="nextQuestion(1)">10kg a 20kg (Sobrepeso Crítico)</button>
+                <button class="option-btn" onclick="nextQuestion(1)">Mais de 25kg (Obesidade)</button>
+            </div>
+        </div>
+
+        <div id="q2" class="question-card" style="display: none;">
+            <p class="question-text">2. Você sente que come pouco mas engorda mesmo assim?</p>
+            <div class="options">
+                <button class="option-btn" onclick="nextQuestion(2)">Sim, meu metabolismo é lento.</button>
+                <button class="option-btn" onclick="nextQuestion(2)">Às vezes, tenho muita ansiedade.</button>
+                <button class="option-btn" onclick="nextQuestion(2)">Não, eu como bastante.</button>
+            </div>
+        </div>
+
+        <div id="q3" class="question-card" style="display: none;">
+            <p class="question-text">3. Qual sua idade?</p>
+            <div class="options">
+                <button class="option-btn" onclick="finishQuiz()">18 a 29 anos</button>
+                <button class="option-btn" onclick="finishQuiz()">30 a 45 anos</button>
+                <button class="option-btn" onclick="finishQuiz()">46 a 60+ anos</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading-screen">
+            <div class="spinner"></div>
+            <p class="loading-text">ANALISANDO SEU PERFIL METABÓLICO...</p>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">Conectando com banco de dados...</p>
+        </div>
+
+    </div>
+
+    <!-- VSL SECTION (AGRESSIVA) -->
+    <div id="vsl-section">
+
+        <!-- FAIXA DE URGÊNCIA -->
+        <div class="aggressive-header">
+            ⚠️ ATENÇÃO: VÍDEO DISPONÍVEL APENAS ATÉ <span id="dynamic-date-vsl">HOJE</span>
+        </div>
+
+        <header class="hero" style="background: transparent; padding-top: 20px;">
+            <div class="container">
+                <div class="headline-box">
+                    <span
+                        style="background: #16a34a; color: white; padding: 5px 15px; font-weight: bold; font-size: 0.9rem; border-radius: 4px; box-shadow: 0 0 10px #16a34a;">
+                        ✅ PERFIL APROVADO: 98% COMPATÍVEL
+                    </span>
+                    <h1 style="color: white; margin-top: 20px; font-size: 2rem;">
+                        VAZOU: A Receita Secreta <span style="color: #ff003c;">"Mounjatina"</span> Que Derrete 20kg em
+                        30 Dias...
+                    </h1>
+                </div>
+
+                <div class="video-wrapper">
+                    <!-- VIDEO PLACEHOLDER -->
+                    <div class="video-placeholder"
+                        style="border-color: #ff003c; border-style: dashed; border-width: 2px;">
+                        <div class="play-button" style="background: #ff003c; width: 90px; height: 90px;">
+                            <i class="fas fa-play" style="color: white; font-size: 2.5rem;"></i>
+                        </div>
+                        <p style="color: #ff003c; font-weight: bold; margin-top: 15px;">🔊 CLIQUE PARA ATIVAR O SOM</p>
+                    </div>
+                </div>
+
+                <!-- CTA BUTTON -->
+                <div id="cta-container" class="cta-box hidden" style="margin-top: 30px;">
+                    <a href="https://pay.kiwify.com.br/SEU-LINK" class="cta-button pulse"
+                        style="background: linear-gradient(to bottom, #16a34a, #15803d); box-shadow: 0 5px 0 #0f5e2d; border: 2px solid #4ade80;">
+                        QUERO A MOUNJATINA POR R$ 19,90 <i class="fas fa-angle-double-right"></i>
+                    </a>
+                    <p class="security-text" style="color: #bbb;"><i class="fas fa-lock"></i> Desconto Válido Somente
+                        Hoje</p>
+
+                    <!-- SELOS DE SEGURANÇA E GARANTIA -->
+                    <div
+                        style="margin-top: 25px; background: #111; border: 1px solid #333; border-radius: 10px; padding: 20px;">
+
+                        <!-- GARANTIA -->
+                        <div
+                            style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #333;">
+                            <div
+                                style="background: #16a34a; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-shield-alt" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <div style="text-align: left;">
+                                <strong style="color: #16a34a; font-size: 1.1rem;">GARANTIA DE 7 DIAS</strong>
+                                <p style="color: #aaa; font-size: 0.85rem; margin: 0;">Se não gostar, devolvemos 100% do
+                                    seu dinheiro. Sem perguntas.</p>
+                            </div>
+                        </div>
+
+                        <!-- FORMAS DE PAGAMENTO -->
+                        <p style="color: #888; font-size: 0.8rem; margin-bottom: 10px; text-transform: uppercase;">
+                            Formas de Pagamento Aceitas:</p>
+                        <div
+                            style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 15px;">
+                            <span
+                                style="background: #1a1f71; color: white; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">💳
+                                VISA</span>
+                            <span
+                                style="background: #eb001b; color: white; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">💳
+                                MASTERCARD</span>
+                            <span
+                                style="background: #32bcad; color: white; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">💳
+                                PIX</span>
+                            <span
+                                style="background: #f5a623; color: black; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">📄
+                                BOLETO</span>
+                        </div>
+
+                        <!-- SELOS DE SEGURANÇA -->
+                        <div
+                            style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding-top: 15px; border-top: 1px solid #333;">
+                            <div style="text-align: center;">
+                                <i class="fas fa-lock" style="color: #16a34a; font-size: 1.5rem;"></i>
+                                <p style="color: #888; font-size: 0.7rem; margin-top: 5px;">COMPRA<br>SEGURA</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <i class="fas fa-check-circle" style="color: #2d88ff; font-size: 1.5rem;"></i>
+                                <p style="color: #888; font-size: 0.7rem; margin-top: 5px;">SITE<br>VERIFICADO</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <i class="fas fa-truck" style="color: #f59e0b; font-size: 1.5rem;"></i>
+                                <p style="color: #888; font-size: 0.7rem; margin-top: 5px;">ENTREGA<br>IMEDIATA</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <i class="fas fa-headset" style="color: #8b5cf6; font-size: 1.5rem;"></i>
+                                <p style="color: #888; font-size: 0.7rem; margin-top: 5px;">SUPORTE<br>24H</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- RODAPÉ DE CREDIBILIDADE / ANTES E DEPOIS -->
+        <section class="transformation-gallery">
+            <h2 class="gallery-title">Resultados Verificados da Comunidade 💬</h2>
+            <div class="gallery-grid">
+
+                <!-- CARD 1 - Barriga Real -->
+                <div class="gallery-card">
+                    <div class="card-header">
+                        <div class="user-avatar"
+                            style="background: #8b5cf6; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            M</div>
+                        <div class="user-info">
+                            <strong>Mariana Costa <i class="fas fa-check-circle verified-badge"></i></strong>
+                            <span>3 horas atrás</span>
+                        </div>
+                    </div>
+                    <img src="prova1.png" alt="Antes e Depois - Barriga"
+                        style="width: 100%; height: auto; display: block;">
+                    <div class="card-footer">
+                        <div class="likes"><span class="like-icon"><i class="fas fa-thumbs-up"></i></span> 2.1k curtidas
+                        </div>
+                        <p style="margin-top: 10px;">"Minha barriga SUMIU em 15 dias! Meu marido não acreditou quando
+                            viu. Mounjatina é real!"</p>
+                    </div>
+                </div>
+
+                <!-- CARD 2 - Rosto Real -->
+                <div class="gallery-card">
+                    <div class="card-header">
+                        <div class="user-avatar"
+                            style="background: #ff003c; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            C</div>
+                        <div class="user-info">
+                            <strong>Carla Mendes <i class="fas fa-check-circle verified-badge"></i></strong>
+                            <span>1 hora atrás</span>
+                        </div>
+                    </div>
+                    <img src="prova2.png" alt="Antes e Depois - Rosto"
+                        style="width: 100%; height: auto; display: block;">
+                    <div class="card-footer">
+                        <div class="likes"><span class="like-icon"><i class="fas fa-thumbs-up"></i></span> 1.8k curtidas
+                        </div>
+                        <p style="margin-top: 10px;">"Olha a diferença no meu rosto! O inchaço sumiu totalmente. Parece
+                            outra pessoa."</p>
+                    </div>
+                </div>
+
+                <!-- CARD 3 - Vestido Real -->
+                <div class="gallery-card">
+                    <div class="card-header">
+                        <div class="user-avatar"
+                            style="background: #16a34a; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            P</div>
+                        <div class="user-info">
+                            <strong>Patricia Oliveira <i class="fas fa-check-circle verified-badge"></i></strong>
+                            <span>45 min atrás</span>
+                        </div>
+                    </div>
+                    <img src="prova3.png" alt="Antes e Depois - Vestido"
+                        style="width: 100%; height: auto; display: block;">
+                    <div class="card-footer">
+                        <div class="likes"><span class="like-icon"><i class="fas fa-thumbs-up"></i></span> 956 curtidas
+                        </div>
+                        <p style="margin-top: 10px;">"O vestido que não subia mais... agora está SOBRANDO! Perdi 8kg em
+                            20 dias. Chorei."</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <p style="text-align: center; color: #666; font-size: 0.8rem; margin-top: 30px;">
+                Este site não é afiliado ao Facebook ou Google. Todos os resultados são pessoais e variam de pessoa para
+                pessoa.
+            </p>
+        </section>
+
+    </div>
+
+    <script>
+        // DATA DINÂMICA
+        const dateElement = document.getElementById('dynamic-date-vsl');
+        const options = { weekday: 'long', day: 'numeric', month: 'long' };
+        const today = new Date().toLocaleDateString('pt-BR', options);
+        if (dateElement) dateElement.innerText = today;
+
+        function nextQuestion(qNumber) {
+            const progress = document.getElementById('progress');
+            progress.style.width = (qNumber * 33) + '%';
+            document.getElementById('q' + qNumber).style.display = 'none';
+            document.getElementById('q' + (qNumber + 1)).style.display = 'block';
+        }
+
+        function finishQuiz() {
+            document.getElementById('progress').style.width = '100%';
+            document.getElementById('q3').style.display = 'none';
+            document.getElementById('quiz-wrapper').querySelector('.quiz-header').style.display = 'none';
+
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+
+            setTimeout(() => {
+                loading.style.display = 'none';
+                document.getElementById('quiz-wrapper').style.display = 'none';
+
+                const vslSection = document.getElementById('vsl-section');
+                vslSection.style.display = 'block';
+
+                // DELAY DO BOTÃO (10s para teste - mudar para tempo do video)
+                setTimeout(() => {
+                    const cta = document.getElementById('cta-container');
+                    cta.classList.remove('hidden');
+                    cta.style.opacity = 1;
+                }, 10000);
+
+            }, 3000);
+        }
+    </script>
+
+</body>
+
+</html>
