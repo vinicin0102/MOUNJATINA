@@ -8,6 +8,76 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Video Container 720x360 (2:1 aspect ratio) - Responsivo */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            margin: 20px auto;
+            padding-bottom: 50%;
+            /* 360/720 = 0.5 = 50% para proporção 2:1 */
+            background: #000;
+            border: 4px dashed #ff003c;
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.3);
+            overflow: hidden;
+        }
+
+        .video-container::before {
+            content: 'CONTEÚDO SENSÍVEL: PODE SER REMOVIDO';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #ff003c;
+            padding: 0 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        .video-container iframe,
+        .video-container video,
+        .video-container .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Hidden class for CTA and Social Proof */
+        .hidden-pitch {
+            display: none !important;
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -34,11 +104,9 @@
                 </p>
             </div>
 
-            <div class="video-wrapper"
-                style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 20px;">
-                <!-- VIDEO PLACEHOLDER - Será substituído pelo Embed do Admin -->
-                <div id="video-placeholder"
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;">
+            <!-- VIDEO CONTAINER 720x360 RESPONSIVO -->
+            <div class="video-container" id="video-wrapper">
+                <div class="video-placeholder" id="video-placeholder">
                     <div class="play-button"
                         style="background: #ff003c; width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                         <i class="fas fa-play" style="color: white; font-size: 2.5rem; margin-left: 5px;"></i>
@@ -47,8 +115,8 @@
                 </div>
             </div>
 
-            <!-- CTA BUTTON -->
-            <div id="cta-container" class="cta-box hidden" style="margin-top: 30px;">
+            <!-- CTA BUTTON (HIDDEN INITIALLY) -->
+            <div id="cta-container" class="cta-box hidden-pitch" style="margin-top: 30px;">
                 <a href="https://pay.kiwify.com.br/SEU-LINK" id="btn-main" class="cta-button pulse"
                     style="background: linear-gradient(to bottom, #16a34a, #15803d); box-shadow: 0 5px 0 #0f5e2d; border: 2px solid #4ade80;">
                     QUERO DESBLOQUEAR MEU METABOLISMO POR R$ 19,90 <i class="fas fa-angle-double-right"></i>
@@ -114,8 +182,8 @@
         </div>
     </header>
 
-    <!-- GALERIA DE PROVA SOCIAL -->
-    <section class="transformation-gallery">
+    <!-- GALERIA DE PROVA SOCIAL (HIDDEN INITIALLY - APPEARS WITH CTA) -->
+    <section id="social-proof-section" class="transformation-gallery hidden-pitch">
         <h2 class="gallery-title">Resultados Verificados da Comunidade 💬</h2>
         <div class="gallery-grid">
             <!-- CARD 1 -->
@@ -164,7 +232,59 @@
         </p>
     </section>
 
-    <script src="script.js"></script>
+    <script>
+        // Data Dinâmica
+        const dateEl = document.getElementById('dynamic-date-vsl');
+        if (dateEl) {
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            dateEl.innerText = new Date().toLocaleDateString('pt-BR', options);
+        }
+
+        // Ler configurações do Admin (localStorage)
+        const config = JSON.parse(localStorage.getItem('funnelConfig')) || {};
+        const ctaMin = parseInt(config.ctaMin) || 0;
+        const ctaSec = parseInt(config.ctaSec) || 10; // Default: 10 segundos para teste
+        const delayMs = ((ctaMin * 60) + ctaSec) * 1000;
+
+        console.log(`Delay do Pitch: ${delayMs}ms (${ctaMin}m ${ctaSec}s)`);
+
+        // Mostrar CTA + Provas Sociais após o delay
+        setTimeout(() => {
+            const cta = document.getElementById('cta-container');
+            const socialProof = document.getElementById('social-proof-section');
+
+            // Remover classe hidden e adicionar animação
+            cta.classList.remove('hidden-pitch');
+            cta.classList.add('fade-in');
+
+            socialProof.classList.remove('hidden-pitch');
+            socialProof.classList.add('fade-in');
+
+            // Scroll suave para o CTA
+            cta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        }, delayMs);
+
+        // Atualizar link do botão se configurado no Admin
+        if (config.linkMain) {
+            document.getElementById('btn-main').href = config.linkMain;
+        }
+
+        // Embed do vídeo se configurado no Admin
+        if (config.vslEmbed && config.vslEmbed.trim() !== '') {
+            const wrapper = document.getElementById('video-wrapper');
+            wrapper.innerHTML = config.vslEmbed;
+            // Garantir que o iframe ocupe todo o espaço
+            const iframe = wrapper.querySelector('iframe');
+            if (iframe) {
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+            }
+        }
+    </script>
 
 </body>
 
