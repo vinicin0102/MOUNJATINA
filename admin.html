@@ -5,250 +5,351 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Admin - Mounjatina</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             color: #e4e6eb;
-            margin: 0;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: rgba(36, 37, 38, 0.95);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid #3e4042;
         }
 
-        h1 {
-            color: #fff;
-            border-bottom: 2px solid #8b5cf6;
-            padding-bottom: 15px;
-            margin-bottom: 10px;
-            font-size: 1.8rem;
-        }
-
-        .subtitle {
-            color: #b0b3b8;
+        /* Header */
+        .header {
+            text-align: center;
             margin-bottom: 25px;
-            font-size: 0.95rem;
+            padding: 20px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
         }
 
-        h2 {
-            color: #e4e6eb;
-            margin-top: 25px;
-            font-size: 1.1rem;
+        .header h1 {
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #b0b3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+            border: 1px solid #ef4444;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .alert-banner i {
+            color: #ef4444;
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+
+        .alert-banner .alert-content h3 {
+            color: #fca5a5;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .alert-banner .alert-content p {
+            color: #b0b3b8;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(36, 37, 38, 0.95);
+            border: 1px solid #3e4042;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3e4042;
         }
 
+        .card-header i {
+            font-size: 1.4rem;
+        }
+
+        .card-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Form Elements */
         label {
             display: block;
-            margin-top: 15px;
-            font-weight: bold;
+            margin-bottom: 6px;
+            font-weight: 600;
             font-size: 0.9rem;
             color: #e4e6eb;
         }
 
+        .input-group {
+            margin-bottom: 18px;
+        }
+
         input,
-        textarea,
-        select {
+        textarea {
             width: 100%;
-            padding: 12px;
-            margin-top: 5px;
+            padding: 12px 15px;
             border: 1px solid #3e4042;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1rem;
             background: #18191a;
             color: #e4e6eb;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         input:focus,
         textarea:focus {
             outline: none;
             border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
         .help-text {
             font-size: 0.8rem;
-            color: #b0b3b8;
-            margin-top: 4px;
+            color: #888;
+            margin-top: 5px;
         }
 
-        .time-inputs {
+        /* Time Input */
+        .time-row {
             display: flex;
             gap: 10px;
             align-items: center;
         }
 
-        .time-inputs input {
+        .time-row input {
             width: 80px;
             text-align: center;
         }
 
-        .time-inputs span {
-            color: #b0b3b8;
+        .time-row span {
+            color: #888;
             font-size: 0.9rem;
         }
 
-        button {
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-            color: white;
-            border: none;
-            padding: 16px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
+        .time-display {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: rgba(22, 163, 74, 0.1);
+            border: 1px solid #16a34a;
             border-radius: 8px;
-            cursor: pointer;
-            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+
+        .time-display strong {
+            color: #4ade80;
+        }
+
+        /* Buttons */
+        .btn {
             width: 100%;
-            transition: all 0.2s;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-        }
-
-        button:hover {
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-        }
-
-        .status {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(22, 163, 74, 0.2);
-            color: #4ade80;
-            border: 1px solid #16a34a;
-            border-radius: 8px;
-            display: none;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .section-box {
-            background: rgba(24, 25, 26, 0.8);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #3e4042;
-            margin-top: 20px;
-        }
-
-        .links-nav {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #3e4042;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .links-nav a {
-            color: #8b5cf6;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 20px;
-            border: 1px solid #8b5cf6;
-            border-radius: 8px;
             transition: all 0.2s;
-            font-size: 0.9rem;
         }
 
-        .links-nav a:hover {
-            background: #8b5cf6;
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
             color: white;
         }
 
-        /* Config Code Display */
-        .config-display {
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            display: none;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
         }
 
-        .config-display h3 {
+        .btn-success {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
+        }
+
+        /* Code Output */
+        .code-output {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .code-output.active {
+            display: block;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .code-header h3 {
             color: #8b5cf6;
+            font-size: 1rem;
+        }
+
+        .code-box {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            max-height: 300px;
+            overflow: auto;
+        }
+
+        .code-box pre {
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+        }
+
+        /* Steps */
+        .steps {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid #3b82f6;
+            border-radius: 10px;
+        }
+
+        .steps h4 {
+            color: #93c5fd;
             margin-bottom: 10px;
             font-size: 0.95rem;
         }
 
-        .config-display pre {
-            background: transparent;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .copy-btn {
-            background: #16a34a;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
+        .steps ol {
+            padding-left: 20px;
+            color: #b0b3b8;
             font-size: 0.85rem;
-            margin-top: 10px;
+            line-height: 1.8;
         }
 
-        .copy-btn:hover {
-            background: #15803d;
+        .steps ol li strong {
+            color: #fff;
         }
 
-        /* Info Banner */
-        .info-banner {
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid #f59e0b;
-            border-radius: 8px;
+        /* Status Message */
+        .status {
             padding: 15px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .status.success {
+            background: rgba(22, 163, 74, 0.2);
+            border: 1px solid #16a34a;
+            color: #4ade80;
+            display: block;
+        }
+
+        /* Quick Links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            padding: 12px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            color: #c4b5fd;
+            text-decoration: none;
+            text-align: center;
             font-size: 0.85rem;
-            color: #fbbf24;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
-        .info-banner i {
-            margin-right: 8px;
+        .quick-link:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateY(-2px);
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px 15px;
+        .quick-link i {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            body {
+                padding: 30px;
             }
 
-            h1 {
-                font-size: 1.4rem;
+            .header h1 {
+                font-size: 2rem;
             }
 
-            .time-inputs {
-                flex-wrap: wrap;
+            .card {
+                padding: 25px;
             }
 
-            .links-nav {
-                flex-direction: column;
+            .time-row input {
+                width: 100px;
             }
 
-            .links-nav a {
-                text-align: center;
+            .quick-links {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     </style>
@@ -257,185 +358,282 @@
 <body>
 
     <div class="container">
-        <h1>⚙️ Painel de Configuração</h1>
-        <p class="subtitle">Controle todos os aspectos do seu funil. Alterações afetam Desktop e Mobile.</p>
-
-        <div class="info-banner">
-            <i class="fas fa-info-circle"></i>
-            <strong>Importante:</strong> Após salvar, copie o código do config.js e atualize o arquivo no servidor para
-            que as mudanças afetem TODOS os dispositivos (desktop e mobile).
+        <!-- Header -->
+        <div class="header">
+            <h1>⚙️ Painel Admin Central</h1>
+            <p>Configure uma vez, funciona em todos os dispositivos</p>
         </div>
 
-        <form id="configForm">
+        <!-- Alert -->
+        <div class="alert-banner">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div class="alert-content">
+                <h3>Como funciona?</h3>
+                <p>Configure os valores abaixo, clique em "Gerar Código", copie o código gerado e substitua o conteúdo
+                    do arquivo <strong>config.js</strong>. Depois faça commit e push. Assim funciona em TODOS os
+                    dispositivos!</p>
+            </div>
+        </div>
 
-            <!-- SEÇÃO VSL -->
-            <div class="section-box">
-                <h2><i class="fas fa-video" style="color: #8b5cf6;"></i> Configuração da VSL</h2>
+        <!-- TIMING CARD -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-clock" style="color: #f59e0b;"></i>
+                <h2>Timing do CTA (Botão de Compra)</h2>
+            </div>
 
-                <label>Código Embed do Vídeo (HTML)</label>
-                <textarea id="vslEmbed" rows="4"
-                    placeholder='Cole o código iframe aqui ex: <iframe src="..."></iframe>'></textarea>
-                <p class="help-text">Pegue o "Embed Code" no Youtube/Vimeo/Panda Video e cole aqui.</p>
-
-                <label>Headline (Título Principal)</label>
-                <input type="text" id="vslHeadline" placeholder="Ex: VAZOU: A Receita Secreta...">
-
-                <label>⏱️ Delay do Botão CTA (Quando aparecer)</label>
-                <div class="time-inputs">
-                    <input type="number" id="ctaMin" placeholder="Min" min="0" value="2">
+            <div class="input-group">
+                <label>⏱️ Quando o botão deve aparecer?</label>
+                <div class="time-row">
+                    <input type="number" id="ctaMin" min="0" max="59" value="2" placeholder="Min">
                     <span>minutos</span>
-                    <input type="number" id="ctaSec" placeholder="Seg" min="0" max="59" value="44">
+                    <input type="number" id="ctaSec" min="0" max="59" value="44" placeholder="Seg">
                     <span>segundos</span>
                 </div>
-                <p class="help-text">Tempo exato para o botão de compra e provas sociais aparecerem. Valor atual:
-                    <strong id="currentTime">2:44</strong></p>
+                <div class="time-display">
+                    Total: <strong id="totalTime">2 minutos e 44 segundos (164000ms)</strong>
+                </div>
             </div>
-
-            <!-- SEÇÃO LINKS -->
-            <div class="section-box">
-                <h2><i class="fas fa-link" style="color: #2d88ff;"></i> Links de Checkout</h2>
-
-                <label>Link Checkout Oferta Principal (Mounjatina)</label>
-                <input type="url" id="linkMain" placeholder="https://pay.kiwify.com.br/...">
-
-                <label>Link Checkout Upsell (Chá Detox)</label>
-                <input type="url" id="linkUpsell" placeholder="https://pay.kiwify.com.br/...">
-
-                <label>Link Checkout Downsell (1 Pote Extra)</label>
-                <input type="url" id="linkDownsell" placeholder="https://pay.kiwify.com.br/...">
-
-                <label>Link Grupo VIP (WhatsApp)</label>
-                <input type="url" id="linkWhatsapp" placeholder="https://chat.whatsapp.com/...">
-            </div>
-
-            <button type="submit"><i class="fas fa-save"></i> SALVAR CONFIGURAÇÕES</button>
-        </form>
-
-        <div id="statusMsg" class="status">✅ Configurações salvas com sucesso!</div>
-
-        <!-- Código para atualizar config.js -->
-        <div id="configDisplay" class="config-display">
-            <h3><i class="fas fa-code"></i> Código para config.js (copie e substitua no arquivo)</h3>
-            <pre id="configCode"></pre>
-            <button type="button" class="copy-btn" onclick="copyCode()"><i class="fas fa-copy"></i> Copiar
-                Código</button>
         </div>
 
-        <div class="links-nav">
-            <a href="quiz.html" target="_blank"><i class="fas fa-question-circle"></i> Quiz</a>
-            <a href="vsl.html" target="_blank"><i class="fas fa-play-circle"></i> VSL</a>
-            <a href="upsell.html" target="_blank"><i class="fas fa-arrow-up"></i> Upsell</a>
-            <a href="obrigado.html" target="_blank"><i class="fas fa-check-circle"></i> Obrigado</a>
+        <!-- LINKS CARD -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-link" style="color: #3b82f6;"></i>
+                <h2>Links de Checkout</h2>
+            </div>
+
+            <div class="input-group">
+                <label>Link Principal (Mounjatina)</label>
+                <input type="url" id="linkMain" placeholder="https://pay.kiwify.com.br/...">
+                <p class="help-text">Link de pagamento da oferta principal</p>
+            </div>
+
+            <div class="input-group">
+                <label>Link Upsell (Chá Detox)</label>
+                <input type="url" id="linkUpsell" placeholder="https://pay.kiwify.com.br/...">
+            </div>
+
+            <div class="input-group">
+                <label>Link Downsell</label>
+                <input type="url" id="linkDownsell" placeholder="https://pay.kiwify.com.br/...">
+            </div>
+
+            <div class="input-group">
+                <label>Link WhatsApp (Grupo VIP)</label>
+                <input type="url" id="linkWhatsapp" placeholder="https://chat.whatsapp.com/...">
+            </div>
+        </div>
+
+        <!-- VIDEO CARD -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-video" style="color: #8b5cf6;"></i>
+                <h2>Configuração do Vídeo</h2>
+            </div>
+
+            <div class="input-group">
+                <label>Código Embed do Vídeo (iframe)</label>
+                <textarea id="vslEmbed"
+                    placeholder='Cole aqui o código embed do YouTube/Vimeo/Panda&#10;Ex: <iframe src="..." ...></iframe>'></textarea>
+                <p class="help-text">Deixe vazio para usar o placeholder padrão</p>
+            </div>
+
+            <div class="input-group">
+                <label>Headline Personalizada (opcional)</label>
+                <input type="text" id="vslHeadline" placeholder="Ex: VAZOU: A Receita Secreta...">
+            </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <button class="btn btn-primary" onclick="generateCode()">
+            <i class="fas fa-code"></i> GERAR CÓDIGO DO CONFIG.JS
+        </button>
+
+        <!-- CODE OUTPUT -->
+        <div id="codeOutput" class="code-output">
+            <div class="card" style="border-color: #16a34a;">
+                <div class="code-header">
+                    <h3><i class="fas fa-file-code"></i> Código Gerado - config.js</h3>
+                </div>
+
+                <div class="code-box">
+                    <pre id="generatedCode"></pre>
+                </div>
+
+                <button class="btn btn-success" onclick="copyCode()">
+                    <i class="fas fa-copy"></i> COPIAR CÓDIGO
+                </button>
+
+                <div class="steps">
+                    <h4>📋 Próximos Passos:</h4>
+                    <ol>
+                        <li>Clique em <strong>"Copiar Código"</strong> acima</li>
+                        <li>Abra o arquivo <strong>config.js</strong> no seu editor</li>
+                        <li>Substitua TODO o conteúdo pelo código copiado</li>
+                        <li>Salve o arquivo</li>
+                        <li>Faça <strong>commit e push</strong> para o GitHub</li>
+                        <li>Pronto! Funciona em Desktop e Mobile! 🎉</li>
+                    </ol>
+                </div>
+
+                <div id="statusMsg" class="status"></div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <a href="quiz.html" target="_blank" class="quick-link">
+                <i class="fas fa-question-circle"></i>
+                Quiz
+            </a>
+            <a href="vsl.html" target="_blank" class="quick-link">
+                <i class="fas fa-play-circle"></i>
+                VSL
+            </a>
+            <a href="upsell.html" target="_blank" class="quick-link">
+                <i class="fas fa-arrow-up"></i>
+                Upsell
+            </a>
+            <a href="obrigado.html" target="_blank" class="quick-link">
+                <i class="fas fa-check-circle"></i>
+                Obrigado
+            </a>
         </div>
     </div>
 
     <script>
-        // Atualizar display do tempo atual
+        // Update time display
         function updateTimeDisplay() {
-            const min = document.getElementById('ctaMin').value || 0;
-            const sec = document.getElementById('ctaSec').value || 0;
-            document.getElementById('currentTime').textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+            const min = parseInt(document.getElementById('ctaMin').value) || 0;
+            const sec = parseInt(document.getElementById('ctaSec').value) || 0;
+            const totalMs = ((min * 60) + sec) * 1000;
+            document.getElementById('totalTime').textContent =
+                `${min} minutos e ${sec} segundos (${totalMs}ms)`;
         }
 
         document.getElementById('ctaMin').addEventListener('input', updateTimeDisplay);
         document.getElementById('ctaSec').addEventListener('input', updateTimeDisplay);
 
-        // Carregar dados salvos ao abrir
-        document.addEventListener('DOMContentLoaded', () => {
-            const config = JSON.parse(localStorage.getItem('funnelConfig')) || {};
+        // Generate config.js code
+        function generateCode() {
+            const ctaMin = parseInt(document.getElementById('ctaMin').value) || 2;
+            const ctaSec = parseInt(document.getElementById('ctaSec').value) || 44;
+            const totalMs = ((ctaMin * 60) + ctaSec) * 1000;
 
-            if (config.vslEmbed) document.getElementById('vslEmbed').value = config.vslEmbed;
-            if (config.vslHeadline) document.getElementById('vslHeadline').value = config.vslHeadline;
-            document.getElementById('ctaMin').value = config.ctaMin || 2;
-            document.getElementById('ctaSec').value = config.ctaSec || 44;
+            const linkMain = document.getElementById('linkMain').value || 'https://pay.kiwify.com.br/SEU-LINK-PRINCIPAL';
+            const linkUpsell = document.getElementById('linkUpsell').value || 'https://pay.kiwify.com.br/SEU-LINK-UPSELL';
+            const linkDownsell = document.getElementById('linkDownsell').value || 'https://pay.kiwify.com.br/SEU-LINK-DOWNSELL';
+            const linkWhatsapp = document.getElementById('linkWhatsapp').value || 'https://chat.whatsapp.com/SEU-GRUPO';
+            const vslEmbed = document.getElementById('vslEmbed').value.replace(/'/g, "\\'").replace(/\n/g, '\\n') || '';
+            const vslHeadline = document.getElementById('vslHeadline').value.replace(/'/g, "\\'") || '';
 
-            if (config.linkMain) document.getElementById('linkMain').value = config.linkMain;
-            if (config.linkUpsell) document.getElementById('linkUpsell').value = config.linkUpsell;
-            if (config.linkDownsell) document.getElementById('linkDownsell').value = config.linkDownsell;
-            if (config.linkWhatsapp) document.getElementById('linkWhatsapp').value = config.linkWhatsapp;
-
-            updateTimeDisplay();
-        });
-
-        // Gerar código do config.js
-        function generateConfigCode(config) {
-            return `/**
+            const code = `/**
+ * =====================================================
  * 🚀 CONFIGURAÇÃO GLOBAL DO FUNIL MOUNJATINA
- * Atualizado em: ${new Date().toLocaleString('pt-BR')}
+ * =====================================================
+ * 
+ * Gerado em: ${new Date().toLocaleString('pt-BR')}
+ * 
+ * ⚠️ ESTE ARQUIVO É A FONTE ÚNICA DE VERDADE!
+ * Funciona em TODOS os dispositivos (Desktop e Mobile)
  */
 
+// =====================================================
+// ⏱️ TIMING DO CTA - ${ctaMin} MINUTOS E ${ctaSec} SEGUNDOS
+// =====================================================
+const CTA_DELAY_MINUTES = ${ctaMin};
+const CTA_DELAY_SECONDS = ${ctaSec};
+const CTA_DELAY_TOTAL_MS = ${totalMs}; // (${ctaMin}*60+${ctaSec})*1000
+
+// =====================================================
+// 🔗 LINKS DE CHECKOUT
+// =====================================================
 const FUNNEL_CONFIG = {
-    // ⏱️ TIMING DO PITCH
-    ctaMin: ${config.ctaMin},
-    ctaSec: ${config.ctaSec},
+    // ⏱️ Timing
+    ctaMin: CTA_DELAY_MINUTES,
+    ctaSec: CTA_DELAY_SECONDS,
+    ctaDelayMs: CTA_DELAY_TOTAL_MS,
 
-    // 📹 EMBED DO VÍDEO
-    vslEmbed: '${(config.vslEmbed || '').replace(/'/g, "\\'")}',
+    // 📹 Vídeo
+    vslEmbed: '${vslEmbed}',
+    vslHeadline: '${vslHeadline}',
 
-    // 📝 HEADLINE
-    vslHeadline: '${(config.vslHeadline || '').replace(/'/g, "\\'")}',
-
-    // 🔗 LINKS DE CHECKOUT
-    linkMain: '${config.linkMain || 'https://pay.kiwify.com.br/SEU-LINK-PRINCIPAL'}',
-    linkUpsell: '${config.linkUpsell || 'https://pay.kiwify.com.br/SEU-LINK-UPSELL'}',
-    linkDownsell: '${config.linkDownsell || 'https://pay.kiwify.com.br/SEU-LINK-DOWNSELL'}',
-
-    // 💬 LINK WHATSAPP
-    linkWhatsapp: '${config.linkWhatsapp || 'https://chat.whatsapp.com/SEU-GRUPO'}'
+    // 🔗 Links
+    linkMain: '${linkMain}',
+    linkUpsell: '${linkUpsell}',
+    linkDownsell: '${linkDownsell}',
+    linkWhatsapp: '${linkWhatsapp}'
 };
 
+// Função para obter config
 function getFunnelConfig() {
-    const localConfig = JSON.parse(localStorage.getItem('funnelConfig') || '{}');
-    const finalConfig = { ...FUNNEL_CONFIG, ...localConfig };
-    if (!localConfig.ctaMin && !localConfig.ctaSec) {
-        finalConfig.ctaMin = FUNNEL_CONFIG.ctaMin;
-        finalConfig.ctaSec = FUNNEL_CONFIG.ctaSec;
-    }
-    return finalConfig;
+    return FUNNEL_CONFIG;
 }
 
+// Exportar globalmente
 window.FUNNEL_CONFIG = FUNNEL_CONFIG;
 window.getFunnelConfig = getFunnelConfig;
-console.log('%c🔧 Config carregada:', 'color: #8b5cf6; font-weight: bold;', getFunnelConfig());`;
+window.CTA_DELAY_MS = CTA_DELAY_TOTAL_MS;
+
+// Log de confirmação
+console.log('%c⏱️ TIMING DO CTA:', 'color: #ff003c; font-size: 14px; font-weight: bold;');
+console.log('%c   → ' + CTA_DELAY_MINUTES + ' minutos e ' + CTA_DELAY_SECONDS + ' segundos (' + CTA_DELAY_TOTAL_MS + 'ms)', 'color: #16a34a; font-weight: bold;');
+console.log('%c📱 Funciona em Desktop e Mobile!', 'color: #8b5cf6; font-weight: bold;');`;
+
+            document.getElementById('generatedCode').textContent = code;
+            document.getElementById('codeOutput').classList.add('active');
+
+            // Scroll to output
+            document.getElementById('codeOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Copiar código
+        // Copy code to clipboard
         function copyCode() {
-            const code = document.getElementById('configCode').textContent;
+            const code = document.getElementById('generatedCode').textContent;
             navigator.clipboard.writeText(code).then(() => {
-                alert('✅ Código copiado! Cole no arquivo config.js');
+                const status = document.getElementById('statusMsg');
+                status.textContent = '✅ Código copiado! Agora cole no arquivo config.js';
+                status.classList.add('success');
+
+                setTimeout(() => {
+                    status.classList.remove('success');
+                }, 5000);
+            }).catch(err => {
+                alert('Erro ao copiar. Selecione o código manualmente.');
             });
         }
 
-        // Salvar dados
-        document.getElementById('configForm').addEventListener('submit', (e) => {
-            e.preventDefault();
+        // Load saved values (for convenience)
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = JSON.parse(localStorage.getItem('adminConfig') || '{}');
+            if (saved.ctaMin) document.getElementById('ctaMin').value = saved.ctaMin;
+            if (saved.ctaSec) document.getElementById('ctaSec').value = saved.ctaSec;
+            if (saved.linkMain) document.getElementById('linkMain').value = saved.linkMain;
+            if (saved.linkUpsell) document.getElementById('linkUpsell').value = saved.linkUpsell;
+            if (saved.linkDownsell) document.getElementById('linkDownsell').value = saved.linkDownsell;
+            if (saved.linkWhatsapp) document.getElementById('linkWhatsapp').value = saved.linkWhatsapp;
+            if (saved.vslEmbed) document.getElementById('vslEmbed').value = saved.vslEmbed;
+            if (saved.vslHeadline) document.getElementById('vslHeadline').value = saved.vslHeadline;
+            updateTimeDisplay();
+        });
 
+        // Save values for convenience (local only)
+        setInterval(() => {
             const config = {
-                vslEmbed: document.getElementById('vslEmbed').value,
-                vslHeadline: document.getElementById('vslHeadline').value,
-                ctaMin: parseInt(document.getElementById('ctaMin').value) || 2,
-                ctaSec: parseInt(document.getElementById('ctaSec').value) || 44,
+                ctaMin: document.getElementById('ctaMin').value,
+                ctaSec: document.getElementById('ctaSec').value,
                 linkMain: document.getElementById('linkMain').value,
                 linkUpsell: document.getElementById('linkUpsell').value,
                 linkDownsell: document.getElementById('linkDownsell').value,
-                linkWhatsapp: document.getElementById('linkWhatsapp').value
+                linkWhatsapp: document.getElementById('linkWhatsapp').value,
+                vslEmbed: document.getElementById('vslEmbed').value,
+                vslHeadline: document.getElementById('vslHeadline').value
             };
-
-            // Salvar no localStorage (funciona neste dispositivo)
-            localStorage.setItem('funnelConfig', JSON.stringify(config));
-
-            // Mostrar código para config.js
-            document.getElementById('configCode').textContent = generateConfigCode(config);
-            document.getElementById('configDisplay').style.display = 'block';
-
-            // Mostrar status
-            const status = document.getElementById('statusMsg');
-            status.style.display = 'block';
-            status.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => { status.style.display = 'none'; }, 5000);
-        });
+            localStorage.setItem('adminConfig', JSON.stringify(config));
+        }, 2000);
     </script>
+
 </body>
 
 </html>
