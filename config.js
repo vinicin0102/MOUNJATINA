@@ -3,63 +3,50 @@
  * 🚀 CONFIGURAÇÃO GLOBAL DO FUNIL MOUNJATINA
  * =====================================================
  * 
- * ⚠️ IMPORTANTE: Este arquivo define o timing do CTA!
- * O valor aqui é FIXO e funciona em TODOS os dispositivos.
+ * Gerado em: 24/01/2026, 11:50:21
  * 
- * TIMING DO CTA: 2 minutos e 44 segundos (164 segundos)
+ * ⚠️ ESTE ARQUIVO É A FONTE ÚNICA DE VERDADE!
+ * Funciona em TODOS os dispositivos (Desktop e Mobile)
  */
 
 // =====================================================
-// ⏱️ TIMING FIXO - 2 MINUTOS E 44 SEGUNDOS
+// ⏱️ TIMING DO CTA - 2 MINUTOS E 44 SEGUNDOS
 // =====================================================
 const CTA_DELAY_MINUTES = 2;
 const CTA_DELAY_SECONDS = 44;
-const CTA_DELAY_TOTAL_MS = ((CTA_DELAY_MINUTES * 60) + CTA_DELAY_SECONDS) * 1000; // 164000ms
+const CTA_DELAY_TOTAL_MS = 164000; // (2*60+44)*1000
 
 // =====================================================
-// 🔗 CONFIGURAÇÕES DE LINKS
+// 🔗 LINKS DE CHECKOUT
 // =====================================================
 const FUNNEL_CONFIG = {
-    // ⏱️ TIMING DO PITCH (FIXO - 2:44)
+    // ⏱️ Timing
     ctaMin: CTA_DELAY_MINUTES,
     ctaSec: CTA_DELAY_SECONDS,
     ctaDelayMs: CTA_DELAY_TOTAL_MS,
 
-    // 📹 EMBED DO VÍDEO (deixe vazio para usar placeholder)
-    vslEmbed: '',
-
-    // 📝 HEADLINE PERSONALIZADA
+    // 📹 Vídeo
+    vslEmbed: '<iframe id="panda-0a115bcb-9d27-42e8-926d-b29439627fdd" src="https://player-vz-41174eb7-d5d.tv.pandavideo.com.br/embed/?v=0a115bcb-9d27-42e8-926d-b29439627fdd" style="border:none;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen=true width="720" height="360" fetchpriority="high"></iframe>',
     vslHeadline: '',
 
-    // 🔗 LINKS DE CHECKOUT (altere aqui)
-    linkMain: 'https://pay.kiwify.com.br/SEU-LINK-PRINCIPAL',
+    // 🔗 Links
+    linkMain: 'https://pay.cakto.com.br/5gmom9n_739508',
     linkUpsell: 'https://pay.kiwify.com.br/SEU-LINK-UPSELL',
     linkDownsell: 'https://pay.kiwify.com.br/SEU-LINK-DOWNSELL',
-
-    // 💬 LINK WHATSAPP/GRUPO VIP
     linkWhatsapp: 'https://chat.whatsapp.com/SEU-GRUPO'
 };
 
-/**
- * Retorna a configuração do funil
- * TIMING É SEMPRE FIXO (2:44) - não depende de localStorage
- */
+// Função para obter config
 function getFunnelConfig() {
-    // TIMING É SEMPRE O DO CONFIG.JS (FIXO!)
-    return {
-        ...FUNNEL_CONFIG,
-        ctaMin: CTA_DELAY_MINUTES,
-        ctaSec: CTA_DELAY_SECONDS,
-        ctaDelayMs: CTA_DELAY_TOTAL_MS
-    };
+    return FUNNEL_CONFIG;
 }
 
-// Exportar para uso global
+// Exportar globalmente
 window.FUNNEL_CONFIG = FUNNEL_CONFIG;
 window.getFunnelConfig = getFunnelConfig;
 window.CTA_DELAY_MS = CTA_DELAY_TOTAL_MS;
 
 // Log de confirmação
-console.log('%c⏱️ TIMING DO CTA CONFIGURADO:', 'color: #ff003c; font-size: 14px; font-weight: bold;');
-console.log('%c   → ' + CTA_DELAY_MINUTES + ' minutos e ' + CTA_DELAY_SECONDS + ' segundos', 'color: #16a34a; font-weight: bold;');
-console.log('%c   → ' + CTA_DELAY_TOTAL_MS + 'ms', 'color: #8b5cf6;');
+console.log('%c⏱️ TIMING DO CTA:', 'color: #ff003c; font-size: 14px; font-weight: bold;');
+console.log('%c   → ' + CTA_DELAY_MINUTES + ' minutos e ' + CTA_DELAY_SECONDS + ' segundos (' + CTA_DELAY_TOTAL_MS + 'ms)', 'color: #16a34a; font-weight: bold;');
+console.log('%c📱 Funciona em Desktop e Mobile!', 'color: #8b5cf6; font-weight: bold;');
