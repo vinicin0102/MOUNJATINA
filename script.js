@@ -1,113 +1,141 @@
+/**
+ * =====================================================
+ * 🚀 SCRIPT PRINCIPAL DO FUNIL MOUNJATINA
+ * =====================================================
+ * 
+ * Este script gerencia:
+ * - Timing do CTA (botão de compra)
+ * - Links dinâmicos
+ * - Embed de vídeo
+ * - Funcionalidades gerais
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- LER CONFIGURAÇÕES DO ADMIN (LocalStorage) ---
-    const config = JSON.parse(localStorage.getItem('funnelConfig')) || {};
+    // ============================================
+    // OBTER CONFIGURAÇÃO (config.js > localStorage)
+    // ============================================
+    let finalConfig;
 
-    // Configurações Padrão se não houver Admin configurado
-    const defaultConfig = {
-        ctaMin: 0,
-        ctaSec: 10,
-        linkMain: 'https://pay.kiwify.com.br/SEU-LINK',
-        linkUpsell: 'obrigado.html', // Fallback
-        linkDownsell: 'obrigado.html'
-    };
+    // Prioridade: getFunnelConfig() do config.js > localStorage > defaults
+    if (typeof getFunnelConfig === 'function') {
+        finalConfig = getFunnelConfig();
+    } else {
+        // Fallback para localStorage
+        const localConfig = JSON.parse(localStorage.getItem('funnelConfig') || '{}');
+        const defaultConfig = {
+            ctaMin: 2,
+            ctaSec: 44,
+            linkMain: 'https://pay.kiwify.com.br/SEU-LINK',
+            linkUpsell: 'obrigado.html',
+            linkDownsell: 'obrigado.html',
+            linkWhatsapp: '#'
+        };
+        finalConfig = { ...defaultConfig, ...localConfig };
+    }
 
-    // Mesclar configs
-    const finalConfig = { ...defaultConfig, ...config };
-
-    console.log("Configurações Carregadas:", finalConfig);
+    console.log('%c📊 Configurações Carregadas:', 'color: #8b5cf6; font-weight: bold;', finalConfig);
 
     // ============================================
-    // 1. VÍDEO E HEADLINE (Apenas na página principal)
+    // 1. VÍDEO E HEADLINE (Páginas com vídeo)
     // ============================================
     const videoWrapper = document.querySelector('.video-wrapper');
     const headlineEl = document.querySelector('.hero h1');
 
-    if (config.vslEmbed && config.vslEmbed.trim() !== '' && videoWrapper) {
+    if (finalConfig.vslEmbed && finalConfig.vslEmbed.trim() !== '' && videoWrapper) {
         // Substitui o placeholder pelo embed real
-        videoWrapper.innerHTML = config.vslEmbed;
-        // Ajusta responsividade do iframe (CSS helper)
+        videoWrapper.innerHTML = finalConfig.vslEmbed;
+        // Ajusta responsividade do iframe
         const iframe = videoWrapper.querySelector('iframe');
         if (iframe) {
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.style.position = 'absolute';
-            iframe.style.top = '0';
-            iframe.style.left = '0';
+            iframe.style.cssText = `
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border: none;
+            `;
         }
     }
 
-    if (config.vslHeadline && config.vslHeadline.trim() !== '' && headlineEl) {
-        headlineEl.innerHTML = config.vslHeadline;
+    if (finalConfig.vslHeadline && finalConfig.vslHeadline.trim() !== '' && headlineEl) {
+        headlineEl.innerHTML = finalConfig.vslHeadline;
     }
 
     // ============================================
-    // 2. DELAY DO BOTÃO CTA (Apenas na principal)
+    // 2. DELAY DO BOTÃO CTA (Controlado pelo config)
     // ============================================
     const ctaContainer = document.getElementById('cta-container');
-    if (ctaContainer) {
-        const min = parseInt(finalConfig.ctaMin) || 0;
-        const sec = parseInt(finalConfig.ctaSec) || 0;
+    if (ctaContainer && ctaContainer.classList.contains('hidden')) {
+        const min = parseInt(finalConfig.ctaMin) || 2;
+        const sec = parseInt(finalConfig.ctaSec) || 44;
         const delayMs = ((min * 60) + sec) * 1000;
 
-        console.log(`Delay CTA: ${delayMs}ms`);
+        console.log(`%c⏱️ Delay CTA: ${delayMs}ms (${min}m ${sec}s)`, 'color: #16a34a; font-weight: bold;');
 
-        // Reseta visibilidade (caso CSS não tenha escondido)
-        ctaContainer.classList.add('hidden');
+        // Garantir que está escondido
         ctaContainer.style.display = 'none';
+        ctaContainer.style.opacity = '0';
 
         setTimeout(() => {
             ctaContainer.style.display = 'block';
-            // Pequeno timeout para permitir transição de opacidade
+            ctaContainer.classList.remove('hidden');
+            // Animar entrada
             setTimeout(() => {
-                ctaContainer.classList.remove('hidden');
-                ctaContainer.style.opacity = 1;
+                ctaContainer.style.opacity = '1';
+                ctaContainer.style.transition = 'opacity 0.5s ease-out';
             }, 50);
+            // Scroll suave para o CTA
+            ctaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, delayMs);
     }
 
     // ============================================
-    // 3. ATUALIZAÇÃO INTELIGENTE DE LINKS
+    // 3. ATUALIZAÇÃO DE LINKS
     // ============================================
 
-    // Botão Principal (Quiz/VSL)
+    // Botão Principal
     const btnMain = document.querySelector('.cta-button');
-    // Na pagina principal, o botão tem class .cta-button. 
-    // Vamos garantir que ele aponte para o linkMain se estiver na home.
-    if (btnMain && window.location.pathname.includes('quiz_vsl')) {
+    if (btnMain && finalConfig.linkMain && finalConfig.linkMain !== 'https://pay.kiwify.com.br/SEU-LINK-PRINCIPAL') {
         btnMain.href = finalConfig.linkMain;
     }
 
-    // Botão Upsell (Sim) - Classe .btn-yes
+    // Botão por ID
+    const btnMainById = document.getElementById('btn-main');
+    if (btnMainById && finalConfig.linkMain && finalConfig.linkMain !== 'https://pay.kiwify.com.br/SEU-LINK-PRINCIPAL') {
+        btnMainById.href = finalConfig.linkMain;
+    }
+
+    // Botão Upsell (Sim)
     const btnYes = document.querySelector('.btn-yes');
-    if (btnYes && window.location.pathname.includes('upsell')) {
-        btnYes.href = finalConfig.linkUpsell;
+    if (btnYes) {
+        if (window.location.pathname.includes('upsell') && finalConfig.linkUpsell) {
+            btnYes.href = finalConfig.linkUpsell;
+        }
+        if (window.location.pathname.includes('downsell') && finalConfig.linkDownsell) {
+            btnYes.href = finalConfig.linkDownsell;
+        }
     }
 
-    // Botão Downsell (Sim) - Classe .btn-yes na página downsell
-    if (btnYes && window.location.pathname.includes('downsell')) {
-        btnYes.href = finalConfig.linkDownsell;
-    }
-
-    // Link WhatsApp (Geralmente no footer ou obrigado)
+    // Link WhatsApp
     const btnWhatsapp = document.getElementById('btn-whatsapp');
     if (btnWhatsapp && finalConfig.linkWhatsapp) {
         btnWhatsapp.href = finalConfig.linkWhatsapp;
     }
 
-
     // ============================================
-    // 4. FUNCIONALIDADES GERAIS (FAQ, DATA)
+    // 4. DATA DINÂMICA
     // ============================================
-
-    // Data Dinâmica
     const dateElement = document.getElementById('dynamic-date-vsl');
     if (dateElement) {
         const options = { weekday: 'long', day: 'numeric', month: 'long' };
         dateElement.innerText = new Date().toLocaleDateString('pt-BR', options);
     }
 
-    // FAQ Accordion
+    // ============================================
+    // 5. FAQ ACCORDION
+    // ============================================
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
@@ -120,5 +148,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // ============================================
+    // 6. DETECÇÃO DE MOBILE (para ajustes)
+    // ============================================
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        || window.innerWidth < 768;
+
+    if (isMobile) {
+        document.body.classList.add('is-mobile');
+        console.log('%c📱 Modo Mobile Detectado', 'color: #f59e0b; font-weight: bold;');
+    }
+
+    // ============================================
+    // 7. ANIMAÇÃO SUAVE DE FADE-IN
+    // ============================================
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-element {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    `;
+    document.head.appendChild(style);
 
 });
