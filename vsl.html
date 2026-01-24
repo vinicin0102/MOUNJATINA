@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Diagnóstico Está Pronto</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- FAIXA DE URGÊNCIA -->
+    <div class="aggressive-header">
+        ⚠️ <span style="color: yellow;">ALERTA VERMELHO:</span> SOLUÇÃO ENCONTRADA. VÁLIDO ATÉ <span
+            id="dynamic-date-vsl">HOJE</span>
+    </div>
+
+    <header class="hero" style="background: transparent; padding-top: 20px;">
+        <div class="container">
+            <div class="headline-box">
+                <span
+                    style="background: #dc2626; color: white; padding: 5px 15px; font-weight: bold; font-size: 0.9rem; border-radius: 4px; box-shadow: 0 0 10px #dc2626;">
+                    ☢️ METABOLISMO EM PERIGO
+                </span>
+                <h1 style="color: white; margin-top: 20px; font-size: 1.8rem;">
+                    O "Scanner" Revelou: Você tem um <span style="color: #ff003c; text-decoration: underline;">Bloqueio
+                        de Gordura Profunda.</span>
+                </h1>
+                <p style="color: #ccc; font-size: 1rem; margin-top: 10px;">
+                    Descobrimos o motivo exato de você não emagrecer. Assista ao vídeo antes que ele seja removido.
+                </p>
+            </div>
+
+            <div class="video-wrapper"
+                style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 20px;">
+                <!-- VIDEO PLACEHOLDER - Será substituído pelo Embed do Admin -->
+                <div id="video-placeholder"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;">
+                    <div class="play-button"
+                        style="background: #ff003c; width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-play" style="color: white; font-size: 2.5rem; margin-left: 5px;"></i>
+                    </div>
+                    <p style="color: #ff003c; font-weight: bold; margin-top: 15px;">🔊 CLIQUE PARA ATIVAR O SOM</p>
+                </div>
+            </div>
+
+            <!-- CTA BUTTON -->
+            <div id="cta-container" class="cta-box hidden" style="margin-top: 30px;">
+                <a href="https://pay.kiwify.com.br/SEU-LINK" id="btn-main" class="cta-button pulse"
+                    style="background: linear-gradient(to bottom, #16a34a, #15803d); box-shadow: 0 5px 0 #0f5e2d; border: 2px solid #4ade80;">
+                    QUERO DESBLOQUEAR MEU METABOLISMO POR R$ 19,90 <i class="fas fa-angle-double-right"></i>
+                </a>
+
+                <p class="security-text" style="color: #bbb;"><i class="fas fa-lock"></i> Desconto Válido Somente Hoje
+                </p>
+
+                <!-- SELOS DE SEGURANÇA E GARANTIA -->
+                <div
+                    style="margin-top: 25px; background: #111; border: 1px solid #333; border-radius: 10px; padding: 20px;">
+
+                    <!-- GARANTIA -->
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #333;">
+                        <div
+                            style="background: #16a34a; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-shield-alt" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <div style="text-align: left;">
+                            <strong style="color: #16a34a; font-size: 1.1rem;">GARANTIA DE 7 DIAS</strong>
+                            <p style="color: #aaa; font-size: 0.85rem; margin: 0;">Se não gostar, devolvemos 100% do seu
+                                dinheiro. Sem perguntas.</p>
+                        </div>
+                    </div>
+
+                    <!-- FORMAS DE PAGAMENTO -->
+                    <div
+                        style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 15px;">
+                        <span
+                            style="background: #1a1f71; color: white; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">💳
+                            VISA</span>
+                        <span
+                            style="background: #eb001b; color: white; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">💳
+                            MASTERCARD</span>
+                        <span
+                            style="background: #32bcad; color: white; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">💳
+                            PIX</span>
+                    </div>
+
+                    <!-- SELOS DE SEGURANÇA -->
+                    <div
+                        style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding-top: 15px; border-top: 1px solid #333;">
+                        <div style="text-align: center;">
+                            <i class="fas fa-lock" style="color: #16a34a; font-size: 1.5rem;"></i>
+                            <p style="color: #888; font-size: 0.7rem; margin-top: 5px;">COMPRA<br>SEGURA</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-check-circle" style="color: #2d88ff; font-size: 1.5rem;"></i>
+                            <p style="color: #888; font-size: 0.7rem; margin-top: 5px;">SITE<br>VERIFICADO</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-truck" style="color: #f59e0b; font-size: 1.5rem;"></i>
+                            <p style="color: #888; font-size: 0.7rem; margin-top: 5px;">ENTREGA<br>IMEDIATA</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-headset" style="color: #8b5cf6; font-size: 1.5rem;"></i>
+                            <p style="color: #888; font-size: 0.7rem; margin-top: 5px;">SUPORTE<br>24H</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- GALERIA DE PROVA SOCIAL -->
+    <section class="transformation-gallery">
+        <h2 class="gallery-title">Resultados Verificados da Comunidade 💬</h2>
+        <div class="gallery-grid">
+            <!-- CARD 1 -->
+            <div class="gallery-card">
+                <div class="card-header">
+                    <div class="user-avatar" style="background: #8b5cf6; color: white;">M</div>
+                    <div class="user-info"><strong>Mariana Costa <i
+                                class="fas fa-check-circle verified-badge"></i></strong><span>3 horas atrás</span></div>
+                </div>
+                <img src="prova1.png" alt="Antes e Depois - Barriga" style="width: 100%; height: auto; display: block;">
+                <div class="card-footer">
+                    <p>"Minha barriga SUMIU em 15 dias! Meu marido não acreditou quando viu. Mounjatina é real!"</p>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="gallery-card">
+                <div class="card-header">
+                    <div class="user-avatar" style="background: #ff003c; color: white;">C</div>
+                    <div class="user-info"><strong>Carla Mendes <i
+                                class="fas fa-check-circle verified-badge"></i></strong><span>1 hora atrás</span></div>
+                </div>
+                <img src="prova2.png" alt="Antes e Depois - Rosto" style="width: 100%; height: auto; display: block;">
+                <div class="card-footer">
+                    <p>"Olha a diferença no meu rosto! O inchaço sumiu totalmente. Parece outra pessoa."</p>
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="gallery-card">
+                <div class="card-header">
+                    <div class="user-avatar" style="background: #16a34a; color: white;">P</div>
+                    <div class="user-info"><strong>Patricia Oliveira <i
+                                class="fas fa-check-circle verified-badge"></i></strong><span>45 min atrás</span></div>
+                </div>
+                <img src="prova3.png" alt="Antes e Depois - Vestido" style="width: 100%; height: auto; display: block;">
+                <div class="card-footer">
+                    <p>"O vestido que não subia mais... agora está SOBRANDO! Perdi 8kg em 20 dias."</p>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; color: #666; font-size: 0.8rem; margin-top: 30px;">
+            Este site não é afiliado ao Facebook ou Google. Todos os resultados são pessoais e variam de pessoa para
+            pessoa.
+        </p>
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
