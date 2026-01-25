@@ -30,7 +30,7 @@ const FUNNEL_CONFIG = {
     vslHeadline: '',
 
     // 🔗 Links
-    linkMain: 'https://pay.cakto.com.br/5gmom9n_739508',
+    linkMain: 'https://pay.cakto.com.br/5gmom9n_739520',
     linkUpsell: 'https://pay.kiwify.com.br/SEU-LINK-UPSELL',
     linkDownsell: 'https://pay.kiwify.com.br/SEU-LINK-DOWNSELL',
     linkWhatsapp: 'https://chat.whatsapp.com/SEU-GRUPO'
