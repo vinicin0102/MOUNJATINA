@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. DELAY DO BOTÃO CTA (Controlado pelo config)
     // ============================================
     const ctaContainer = document.getElementById('cta-container');
-    if (ctaContainer && ctaContainer.classList.contains('hidden')) {
+    if (ctaContainer && ctaContainer.classList.contains('hidden-pitch')) {
         const min = parseInt(finalConfig.ctaMin) || 2;
         const sec = parseInt(finalConfig.ctaSec) || 44;
         const delayMs = ((min * 60) + sec) * 1000;
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
             ctaContainer.style.display = 'block';
-            ctaContainer.classList.remove('hidden');
+            ctaContainer.classList.remove('hidden-pitch');
             // Animar entrada
             setTimeout(() => {
                 ctaContainer.style.opacity = '1';
