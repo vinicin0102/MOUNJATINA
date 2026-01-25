@@ -45,18 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (finalConfig.vslEmbed && finalConfig.vslEmbed.trim() !== '' && videoWrapper) {
         // Substitui o placeholder pelo embed real
         videoWrapper.innerHTML = finalConfig.vslEmbed;
-        // Ajusta responsividade do iframe
-        const iframe = videoWrapper.querySelector('iframe');
-        if (iframe) {
-            iframe.style.cssText = `
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                border: none;
-            `;
-        }
     }
 
     if (finalConfig.vslHeadline && finalConfig.vslHeadline.trim() !== '' && headlineEl) {

@@ -493,7 +493,7 @@
             </div>
 
             <!-- VIDEO CONTAINER RESPONSIVO -->
-            <div class="video-container" id="video-wrapper">
+            <div class="video-container video-wrapper" id="video-wrapper">
                 <div class="video-placeholder" id="video-placeholder">
                     <div class="play-button">
                         <i class="fas fa-play"></i>
@@ -605,82 +605,8 @@
         </p>
     </section>
 
-    <script>
-        // =====================================================
-        // ⏱️ TIMING FIXO - 2 MINUTOS E 44 SEGUNDOS (164000ms)
-        // =====================================================
-        // NÃO DEPENDE DE LOCALSTORAGE OU CONFIG EXTERNO!
-        // =====================================================
-        const CTA_DELAY_MS = 164000; // 2 min 44 seg = (2*60+44)*1000 = 164000ms
-
-        console.log('%c⏱️ TIMING FIXO DO CTA: 2 minutos e 44 segundos (164000ms)', 'color: #ff003c; font-size: 14px; font-weight: bold;');
-        console.log('%c📱 Funciona em Desktop e Mobile!', 'color: #16a34a; font-weight: bold;');
-
-        // Data Dinâmica
-        const dateEl = document.getElementById('dynamic-date-vsl');
-        if (dateEl) {
-            const options = { weekday: 'long', day: 'numeric', month: 'long' };
-            dateEl.innerText = new Date().toLocaleDateString('pt-BR', options);
-        }
-
-        // =====================================================
-        // MOSTRAR CTA + PROVAS SOCIAIS APÓS 2:44
-        // =====================================================
-        setTimeout(() => {
-            const cta = document.getElementById('cta-container');
-            const socialProof = document.getElementById('social-proof-section');
-
-            if (cta) {
-                // Remover classe hidden e adicionar animação
-                cta.classList.remove('hidden-pitch');
-                cta.classList.add('fade-in');
-                cta.style.display = 'block';
-            }
-
-            if (socialProof) {
-                socialProof.classList.remove('hidden-pitch');
-                socialProof.classList.add('fade-in');
-                socialProof.style.display = 'block';
-            }
-
-            // Scroll suave para o CTA
-            if (cta) {
-                cta.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            console.log('%c✅ CTA e Provas Sociais ATIVADOS!', 'color: #16a34a; font-size: 14px; font-weight: bold;');
-
-        }, CTA_DELAY_MS);
-
-        // =====================================================
-        // CONFIGURAÇÕES OPCIONAIS (links e vídeo)
-        // =====================================================
-        // Tenta carregar config do localStorage (apenas para links)
-        try {
-            const config = JSON.parse(localStorage.getItem('funnelConfig') || '{}');
-
-            // Atualizar link do botão se configurado
-            if (config.linkMain && config.linkMain.includes('kiwify.com.br')) {
-                const btnMain = document.getElementById('btn-main');
-                if (btnMain) btnMain.href = config.linkMain;
-            }
-
-            // Embed do vídeo se configurado
-            if (config.vslEmbed && config.vslEmbed.trim() !== '') {
-                const wrapper = document.getElementById('video-wrapper');
-                if (wrapper) {
-                    wrapper.innerHTML = config.vslEmbed;
-                    const iframe = wrapper.querySelector('iframe');
-                    if (iframe) {
-                        iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
-                    }
-                }
-            }
-        } catch (e) {
-            console.log('Config não encontrada, usando valores padrão');
-        }
-    </script>
-
+    <script src="config.js?v=999"></script>
+    <script src="script.js?v=999"></script>
 </body>
 
 </html>
