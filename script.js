@@ -58,11 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const socialProofSection = document.getElementById('social-proof-section');
 
     if (ctaContainer && ctaContainer.classList.contains('hidden-pitch')) {
-        const min = parseInt(finalConfig.ctaMin) || 2;
-        const sec = parseInt(finalConfig.ctaSec) || 44;
-        const delayMs = ((min * 60) + sec) * 1000;
+        // FORÇAR 2 MINUTOS E 44 SEGUNDOS (164 SEGUNDOS)
+        const delayMs = 164000;
 
-        console.log(`%c⏱️ Delay CTA e Provas Sociais: ${delayMs}ms (${min}m ${sec}s)`, 'color: #16a34a; font-weight: bold;');
+        console.log(`%c⏱️ Delay CTA e Provas Sociais DEFINIDO: ${delayMs}ms (2m 44s)`, 'color: #ff003c; font-weight: bold;');
 
         // Garantir que o CTA está escondido
         ctaContainer.style.display = 'none';
@@ -220,31 +219,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (addressForm) {
             addressForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                
+
                 // Collect form data (if you want to pass it to the checkout via URL params)
                 const formData = new FormData(addressForm);
                 const data = Object.fromEntries(formData.entries());
-                
+
                 console.log('Dados do Formulário:', data);
 
                 // Simulate processing or redirect to checkout
                 const submitBtn = addressForm.querySelector('.submit-btn');
                 const originalText = submitBtn.innerHTML;
-                
+
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
-                
+
                 setTimeout(() => {
                     // Redirect to the payment link (use Config link if available, else default)
                     const checkoutUrl = finalConfig.linkMain || 'https://pay.cakto.com.br/5gmom9n_739520';
-                    
+
                     // Optional: Append params to URL
                     // const url = new URL(checkoutUrl);
                     // url.searchParams.append('name', data.name);
                     // url.searchParams.append('email', data.email); // if you add email field
                     // window.location.href = url.toString();
-                    
+
                     window.location.href = checkoutUrl;
-                    
+
                 }, 1500);
             });
         }
