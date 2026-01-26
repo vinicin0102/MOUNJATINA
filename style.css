@@ -416,6 +416,113 @@ img {
     text-align: left;
 }
 
+/* --- FEATURED OFFER BOX --- */
+.featured-offer-box {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 2px solid #ff003c;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.15);
+}
+
+.offer-content {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.offer-image {
+    position: relative;
+    flex-shrink: 0;
+    width: 120px;
+}
+
+.offer-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.badge-discount {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff003c;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(255, 0, 60, 0.4);
+    transform: rotate(10deg);
+}
+
+.offer-details {
+    flex: 1;
+}
+
+.offer-uptitle {
+    color: #ff003c;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.offer-details h3 {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.offer-details p {
+    color: #bbb;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+.price-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.old-price {
+    color: #666;
+    text-decoration: line-through;
+    font-size: 0.85rem;
+}
+
+.current-price {
+    color: #16a34a;
+    font-size: 1.6rem;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.shipping-info {
+    color: #e4e6eb;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+    .offer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .offer-image {
+        width: 150px;
+    }
+}
+
 /* --- SHIPPING MODAL STYLES --- */
 .modal-overlay {
     position: fixed;
@@ -445,8 +552,15 @@ img {
 }
 
 @keyframes slideUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .close-modal {
