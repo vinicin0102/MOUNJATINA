@@ -26,7 +26,7 @@ const FUNNEL_CONFIG = {
     ctaDelayMs: CTA_DELAY_TOTAL_MS,
 
     // 📹 Vídeo
-    vslEmbed: '<vturb-smartplayer id="vid-69781f5b0c4568e0eb9b6d3f" style="display: block; margin: 0 auto; width: 100%; max-width: 100%; height: 100%;"></vturb-smartplayer>',
+    vslEmbed: '<iframe id="panda-fe3c7d15-92fd-4eed-9fb1-3fd7c24e02a2" src="https://player-vz-41174eb7-d5d.tv.pandavideo.com.br/embed/?v=fe3c7d15-92fd-4eed-9fb1-3fd7c24e02a2" style="border:none; width:100%; height:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen=true fetchpriority="high"></iframe>',
     vslHeadline: '',
 
     // 🔗 Links
